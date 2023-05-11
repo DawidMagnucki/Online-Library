@@ -13,6 +13,17 @@ public class Book {
 
     }
 
+    public static Book parseBookInfo (String line){
+        String[] parts = line.split("\"");
+        if (parts.length == 2){
+            String title = parts[0].trim();
+            String author = parts[1].trim();
+            return new Book(title, author);
+        }
+        return null;
+    }
+
+
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
