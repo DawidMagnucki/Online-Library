@@ -1,4 +1,4 @@
-package Library;
+package main.java.Library;
 
 public class Library {
 // dodac pole file handler
@@ -6,6 +6,8 @@ public class Library {
     public void addBook(Book book) { // this method adds a book to the library
 // metoda bedzie wywolywala file handler. mozesz zrobic if, ktory bedzie szukal ksiazki w danym formacie (boolean, ktory bedzie odczytywal, cy jest taka ksiazka)
 // bedzie wywolywala 2x file handler. 1x zeby zobaczyc jakie sa ksiazki,a 2 zeby zapisac jak jej nie ma.
+        //TODO: Klasa FileHandler będzie posiadała dodatkową metodę findBook(Book book) która będzie sprawdzać czy jest w bazie ta książka i zwracała booleana
+        //TODO: warunek , że jeżeli zwróci false, to wstaw ksiązkę do bazy
     }
 
     public void borrowBook(Book book, Borrower borrower) { // this method borrows a book from the library and assign it to the borrower

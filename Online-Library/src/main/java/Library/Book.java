@@ -1,4 +1,4 @@
-package Library;
+package main.java.Library;
 
 public class Book {
 

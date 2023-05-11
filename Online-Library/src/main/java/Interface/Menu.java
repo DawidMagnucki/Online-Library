@@ -1,4 +1,4 @@
-package Interface;
+package main.java.Interface;
 import java.util.Scanner;
 
 public class Menu {
