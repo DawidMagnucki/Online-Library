@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    Scanner scanner = new Scanner();
+    Scanner scanner = new Scanner(System.in);
 
     public void showMainMenu() { // this method displays the main menu to the user
 

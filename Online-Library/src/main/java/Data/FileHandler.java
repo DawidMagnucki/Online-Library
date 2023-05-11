@@ -1,5 +1,7 @@
 package Data;
+
 import Library.Book;
+
 import java.io.*;
 import java.util.*;
 
@@ -25,7 +27,7 @@ public class FileHandler {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Book book = book.parseBookInfo(line);
+                Book book = new Book(line);
                 if (book != null) {
                     books.add(book);
                 }
