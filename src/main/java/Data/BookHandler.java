@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 
 public class BookHandler {
-    private String filePath = "C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\Data Base - List of Books.txt";
+    private final String filePath = "C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\Data Base - List of Books.txt";
 
     public void saveBookInfo(Book book) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
@@ -29,7 +29,6 @@ public class BookHandler {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        ;
         return books;
     }
 
