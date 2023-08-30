@@ -1,4 +1,4 @@
-package Library;
+package model;
 
 import java.util.Objects;
 

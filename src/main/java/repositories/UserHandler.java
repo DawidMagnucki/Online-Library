@@ -1,6 +1,6 @@
-package Data;
+package repositories;
 
-import Library.Book;
+import model.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UserManager {
+public class UserHandler {
 
     private final String filePath = "C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\users.txt";
 
     private List<User> userList;
 
-    public UserManager() {
+    public UserHandler() {
         this.userList = readAllUsers();
     }
 
@@ -24,12 +24,12 @@ public class UserManager {
         String userID = UUID.randomUUID().toString();
         User newUser = new User(userID, username, password, email);
 
+
         try {
             FileWriter writer = new FileWriter("C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\users.txt", true);
             writer.write(newUser + "\n");
-            writer.close();
         } catch (IOException exception) {
-            exception.printStackTrace();
+            throw new FilePathNotFoundException("An error has occurred while creating new user. File path not found.", exception);
         }
         return newUser;
     }

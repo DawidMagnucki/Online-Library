@@ -1,4 +1,4 @@
-package Interface;
+package ui;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ public class Menu {
 
     private static Scanner scanner;
 
-    public static void showMainMenu() { // this method displays the main menu to the user
+    public static void getMenuChoice() { // this method displays the main menu to the user
         System.out.println("1. Show all books");
         System.out.println("2. Add a new book");
         System.out.println("3. Register");

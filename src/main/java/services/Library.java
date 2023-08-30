@@ -1,12 +1,14 @@
-package Library;
+package services;
 
-import Data.BookHandler;
+import model.Book;
+import model.Borrower;
+import repositories.BookHandlerImpl;
 
 import java.util.List;
 
 public class Library {
 
-    private BookHandler bookHandler = new BookHandler();
+    private BookHandlerImpl bookHandler = new BookHandlerImpl();
 
 
 

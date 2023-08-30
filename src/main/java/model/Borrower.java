@@ -1,4 +1,6 @@
-package Library;
+package model;
+
+import model.Book;
 
 public class Borrower {
 

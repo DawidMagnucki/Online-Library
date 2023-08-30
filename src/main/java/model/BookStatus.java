@@ -1,4 +1,4 @@
-package Library;
+package model;
 
 public enum BookStatus {
 
