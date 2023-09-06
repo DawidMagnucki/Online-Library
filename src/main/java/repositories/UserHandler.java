@@ -43,7 +43,7 @@ public class UserHandler {
         return false;
     }
 
-    private List<User> readAllUsers() { // this method reads the book data from a file
+    private List<User> readAllUsers() { // this method reads the user data from a file
         List<User> users = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
