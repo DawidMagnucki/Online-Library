@@ -5,20 +5,26 @@ import java.io.*;
 import java.util.*;
 
 public class BookHandlerImpl implements BookHandler {
-    private final String filePath = "C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\Data Base - List of Books.txt";
+    private final String filePath = "src/main/resources/Data Base - List of Books.txt";
+    private final List<Book> books;
+
+    public BookHandlerImpl() {
+        books = readAllBooks(); // Read books once at the start
+    }
 
     @Override
     public void saveBookInfo(Book book) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
             String formattedEntry = String.format("\"%s\" %s - %s", book.getTitle(), book.getAuthor(), book.getBookStatus());
             writer.println(formattedEntry);
+            books.add(book); // Add the book to the list
         } catch (IOException exception) {
             throw new FilePathNotFoundException("An error occurred while saving the book information. File path not found.", exception);
         }
     }
 
     @Override
-    public List<Book> readAllBooks() { // this method reads the book data from a file
+    public List<Book> readAllBooks() {
         List<Book> books = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -35,18 +41,11 @@ public class BookHandlerImpl implements BookHandler {
 
     @Override
     public boolean exists(Book book) {
-        List<Book> existingBooks = readAllBooks();
-        for (Book existingBook : existingBooks) {
-            if (existingBook.equals(book)){
-                return true;
-            }
-        }
-        return false;
+        return books.contains(book); // Check if the book is in the list
     }
 
-
     @Override
-    public void writeStatisticsData(String fileName, Statistics statistics) { // This method writes the statistics data to a file.
-
+    public void writeStatisticsData(String fileName, Statistics statistics) {
+        // This method writes the statistics data to a file.
     }
 }

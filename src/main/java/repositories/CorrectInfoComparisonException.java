@@ -1,8 +1,7 @@
 package repositories;
 
-public class CorrectInfoComparisonException extends Exception {
-    public CorrectInfoComparisonException (String message){
+public class CorrectInfoComparisonException extends RuntimeException {
+    public CorrectInfoComparisonException(String message) {
         super(message);
     }
-
 }

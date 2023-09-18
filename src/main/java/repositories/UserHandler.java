@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class UserHandler {
 
-    private final String filePath = "C:\\Users\\david\\IdeaProjects\\LibraryProject\\Online-Library\\src\\main\\resources\\users.txt";
+    private final String filePath = "src/main/resources/users.txt";
     private List<User> userList;
 
     public UserHandler() {
@@ -47,7 +47,7 @@ public class UserHandler {
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(",");
                 if (userData.length >= 2 && userData[1].equals(username)) {
-                    return true; // Nazwa użytkownika już istnieje.
+                    return true; // Username already exists.
                 }
             }
         } catch (IOException exception) {

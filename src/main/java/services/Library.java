@@ -2,15 +2,17 @@ package services;
 
 import model.Book;
 import model.Borrower;
+import repositories.BookHandler;
 import repositories.BookHandlerImpl;
 
 import java.util.List;
 
 public class Library {
 
-    private BookHandlerImpl bookHandler = new BookHandlerImpl();
-
-
+    private BookHandler bookHandler;
+    public Library() {
+        this.bookHandler = new BookHandlerImpl();
+    }
 
     public void addBook(Book book) { // this method adds a book to the library
         if (!bookHandler.exists(book)) {
@@ -21,7 +23,7 @@ public class Library {
         }
     }
 
-    public void borrowBook(Book book, Borrower borrower) { // this method borrows a book from the library and assign it to the borrower
+    public void borrowBook(Book book, Borrower borrower) { // this method borrows a book from the library and assigns it to the borrower
 
     }
 
@@ -41,8 +43,7 @@ public class Library {
 
     }
 
-    public List<Book> getAllBooks() { // this method reads all books info
+    public List<Book> getAllBooks() { // this method reads all book info
         return bookHandler.readAllBooks();
     }
-
 }
