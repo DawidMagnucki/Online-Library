@@ -1,4 +1,4 @@
-package repositories;
+package exceptions;
 
 public class UsernameAlreadyExistsException extends Exception {
 

@@ -1,4 +1,4 @@
-package repositories;
+package exceptions;
 
 import java.io.IOException;
 

@@ -1,8 +1,11 @@
+import exceptions.CorrectInfoComparisonException;
+import exceptions.LoginException;
+import exceptions.UsernameAlreadyExistsException;
 import model.Book;
 import repositories.*;
 import services.Library;
 import ui.Menu;
-import ui.WrongMenuChoiceException;
+import exceptions.WrongMenuChoiceException;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -11,14 +14,11 @@ import static java.lang.System.out;
 
 public class Application {
 
-    static UserHandler userHandler = new UserHandler();
-    static boolean loggedIn = false;
+    static UserHandler userHandler = new UserHandlerImpl("src/main/resources/users.txt");
 
     public static void start() {
 
-        UserHandler userHandler = new UserHandler();
         Library library = new Library();
-        CorrectInfoComparison comparison = new CorrectInfoComparison();
         List<Book> books = library.getAllBooks(); // Read books once at the start
 
         boolean loggedIn = false;
@@ -34,42 +34,10 @@ public class Application {
 
             try {
                 switch (loginChoice) {
-                    case 1: login();
-                        break;
-                    case 2: // register
-                        String registerUsername = Menu.getUserReply("Please create your unique username.");
-                        if (userHandler.doesUsernameExist(registerUsername)) {
-                            System.err.println("Username already exists. Please choose a different username.");
-                            break;
-                        }
-                        String registerPassword = Menu.getUserReply("Please set your password.");
-                        String registerPassword2 = Menu.getUserReply("Please re-enter your password.");
-                        try {
-                            if (comparison.comparator(registerPassword, registerPassword2)) {
-                                String email = Menu.getUserReply("Please enter your e-mail address");
-                                String email2 = Menu.getUserReply("Please re-enter your e-mail address");
-                                try {
-                                    if (comparison.comparator(email, email2)) {
-                                        userHandler.registerUser(registerUsername, registerPassword, email);
-                                        out.println("Registration successful.");
-                                    } else {
-                                        throw new CorrectInfoComparisonException("The e-mails do not match. Please try again");
-                                    }
-                                } catch (CorrectInfoComparisonException exception) {
-                                    System.err.println(exception.getMessage());
-                                }
-                            } else {
-                                throw new CorrectInfoComparisonException("Your password does not match. Please try again.");
-                            }
-                        } catch (CorrectInfoComparisonException exception) {
-                            System.err.println(exception.getMessage());
-                        }
-                        break;
-                    case 3: // exit
-                        System.exit(0);
-                        break;
-                    default:
-                        throw new WrongMenuChoiceException("Invalid choice entered");
+                    case 1 -> loggedIn = login();
+                    case 2 -> register();
+                    case 3 -> System.exit(0);
+                    default -> throw new WrongMenuChoiceException("Invalid choice entered");
                 }
 
                 if (loggedIn) {
@@ -80,24 +48,17 @@ public class Application {
                             int menuChoice = Menu.getUserInput();
 
                             switch (menuChoice) {
-                                case 1: // show all books
-                                    out.println(books);
-                                    break; // Added break to avoid fall-through
-                                case 2:  // add a new book
-                                    String title = Menu.getUserReply("Please enter a title");
-                                    String author = Menu.getUserReply("Please enter an author");
-                                    library.addBook(new Book(title, author));
-                                    break; // Added break to avoid fall-through
-                                case 3:  // Logout & Move to Previous Menu
+                                case 1 -> out.println(books);
+                                case 2 -> addNewBook(library);
+                                case 3 -> {
                                     loggedIn = false;
                                     continueInnerLoop = false;
-                                    break;
-                                case 4:  // Logout & Move to Previous Menu
+                                }
+                                case 4 -> {
                                     loggedIn = false;
                                     System.exit(0);
-                                    break;
-                                default:
-                                    throw new WrongMenuChoiceException("Invalid choice entered");
+                                }
+                                default -> throw new WrongMenuChoiceException("Invalid choice entered");
                             }
                         }
                     } catch (InputMismatchException exception) {
@@ -114,13 +75,50 @@ public class Application {
         }
     }
 
-    public static void login() throws LoginException {
+    private static void addNewBook(Library library) {
+        String title = Menu.getUserReply("Please enter a title");
+        String author = Menu.getUserReply("Please enter an author");
+        library.addBook(new Book(title, author));
+    }
+
+    private static void register() throws UsernameAlreadyExistsException {
+        String registerUsername = Menu.getUserReply("Please create your unique username.");
+        if (userHandler.doesUsernameExist(registerUsername)) {
+            System.err.println("Username already exists. Please choose a different username.");
+            return;
+        }
+        String registerPassword = Menu.getUserReply("Please set your password.");
+        String registerPassword2 = Menu.getUserReply("Please re-enter your password.");
+        try {
+            if (registerPassword.equals(registerPassword2)) {
+                String email = Menu.getUserReply("Please enter your e-mail address");
+                String email2 = Menu.getUserReply("Please re-enter your e-mail address");
+                try {
+                    if (email.equals(email2)) {
+                        userHandler.registerUser(registerUsername, registerPassword, email);
+                        out.println("Registration successful.");
+                    } else {
+                        throw new CorrectInfoComparisonException("The e-mails do not match. Please try again");
+                    }
+                } catch (CorrectInfoComparisonException exception) {
+                    System.err.println(exception.getMessage());
+                }
+            } else {
+                throw new CorrectInfoComparisonException("Your password does not match. Please try again.");
+            }
+        } catch (CorrectInfoComparisonException exception) {
+            System.err.println(exception.getMessage());
+        }
+    }
+
+    public static boolean login() throws LoginException {
         String username = Menu.getUserReply("Please enter your username.");
         String password = Menu.getUserReply("Please enter your password.");
         if (userHandler.login(username, password)) {
-            loggedIn = true;
             System.out.println("Login has been successful. Welcome " + username + ".");
+            return true;
         }
+        return false;
     }
 }
 
