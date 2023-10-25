@@ -1,5 +1,6 @@
 package repositories;
 import model.User;
+import ui.Menu;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static java.lang.System.out;
 
 public class UserHandler {
 
@@ -33,7 +36,15 @@ public class UserHandler {
         }
         return newUser;
     }
-    public boolean login(String username, String password) {
+    public boolean login (String username, String password) throws LoginException {
+
+        if (validateCredentials (username, password)) {
+            return true;
+        } else {
+            throw new LoginException("Invalid username or password. Please try again.");
+        }
+    }
+    private boolean validateCredentials (String username, String password){
         for (User user : userList) {
             if (user.getUsername() != null && user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return true;
