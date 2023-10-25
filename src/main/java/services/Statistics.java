@@ -1,13 +1,14 @@
-package Data;
+package services;
 
-import Library.Book;
+import model.Book;
+
 import java.util.Date;
 public class Statistics {
 
     Book book;
     Date date;
 
-    public void addBorrowedBook (Book book){ // this method imports data from package Library.Book and adds a borrowed book to the statistics data.
+    public void addBorrowedBook (Book book){ // this method imports data from package model.Book and adds a borrowed book to the statistics data.
 
     }
 
