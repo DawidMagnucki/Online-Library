@@ -9,5 +9,5 @@ public interface UserHandler {
 
     boolean login(String username, String password) throws LoginException;
 
-    boolean doesUsernameExist(String username);
+    boolean doesUsernameExist(String username) throws UsernameAlreadyExistsException;
 }

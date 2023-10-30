@@ -1,8 +1,10 @@
 package repositories;
 
 import model.Book;
+import model.Borrower;
 import services.Statistics;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BookHandler {
@@ -11,6 +13,8 @@ public interface BookHandler {
     List<Book> readAllBooks();
 
     boolean exists(Book book);
+
+    void addBookToLendingList(Book book, Borrower borrower, Date date);
 
     void writeStatisticsData(String fileName, Statistics statistics);
 }

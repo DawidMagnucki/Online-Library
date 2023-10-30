@@ -2,6 +2,7 @@ package repositories;
 import exceptions.FilePathNotFoundException;
 import exceptions.LoginException;
 import exceptions.UsernameAlreadyExistsException;
+import exceptions.readAllUserException;
 import model.User;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 public class UserHandlerImpl implements UserHandler {
 
-    private String filePath;
+    private final String filePath;
     private List<User> userList;
 
     public UserHandlerImpl(String filePath) {
@@ -56,7 +57,7 @@ public class UserHandlerImpl implements UserHandler {
         return false;
     }
     @Override
-    public boolean doesUsernameExist(String username) {
+    public boolean doesUsernameExist(String username) throws UsernameAlreadyExistsException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -66,6 +67,7 @@ public class UserHandlerImpl implements UserHandler {
                 }
             }
         } catch (IOException exception) {
+            throw new UsernameAlreadyExistsException("This username already exists. Please try a different login name");
         }
         return false;
     }
@@ -78,7 +80,7 @@ public class UserHandlerImpl implements UserHandler {
                 users.add(user);
             }
         } catch (IOException exception) {
-            exception.printStackTrace();
+           // throw new readAllUserException("An error occurred. Please try again.");
         }
         return users;
     }

@@ -4,9 +4,10 @@ import model.Book;
 import services.Statistics;
 import java.io.*;
 import java.util.*;
+import model.Borrower;
 
 public class BookHandlerImpl implements BookHandler {
-    private final String filePath = "src/main/resources/Data Base - List of Books.txt";
+    private final String listOfBooksFilePath = "src/main/resources/Data Base - List of Books.txt";
     private final List<Book> books;
 
     public BookHandlerImpl() {
@@ -15,7 +16,7 @@ public class BookHandlerImpl implements BookHandler {
 
     @Override
     public void saveBookInfo(Book book) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(listOfBooksFilePath, true))) {
             String formattedEntry = String.format("\"%s\" %s - %s", book.getTitle(), book.getAuthor(), book.getBookStatus());
             writer.println(formattedEntry);
             books.add(book); // Add the book to the list
@@ -28,7 +29,7 @@ public class BookHandlerImpl implements BookHandler {
     public List<Book> readAllBooks() {
         List<Book> books = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(listOfBooksFilePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Book book = new Book(line);
@@ -43,6 +44,20 @@ public class BookHandlerImpl implements BookHandler {
     @Override
     public boolean exists(Book book) {
         return books.contains(book); // Check if the book is in the list
+    }
+
+    @Override
+    public void addBookToLendingList(Book book, Borrower borrower, Date date){
+        String lendingListFilePath = "src/main/resources/lending.txt";
+        try (PrintWriter writer =  new PrintWriter(new FileWriter (lendingListFilePath, true))) {
+            String formattedEntry = String.format("\"%s\" %s - %s - %s - %s", book.getTitle(), book.getAuthor(),
+                    book.getBookStatus(), borrower.getName(), date);
+            writer.println(formattedEntry);
+        }
+        catch (IOException exception){
+            throw new FilePathNotFoundException("An error has occurred while accessing the file. File path not found.",
+                    exception);
+        }
     }
 
     @Override

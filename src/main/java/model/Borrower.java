@@ -1,42 +1,32 @@
 package model;
 
-import model.Book;
-
 public class Borrower {
 
     String name;
-    String ID;
+    String id;
 
-    public Borrower(String name, String ID) {
+    public Borrower(String name, String id) {
         this.name = name;
-        this.ID = ID;
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return id;
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public void borrowBook(Book book) { // this method borrows a book from the library
+    public void borrowBook(Book book) {
 
     }
 
-    public void returnBook(Book book) { // this method returns a book to the library
+    public void returnBook(Book book) {
 
     }
 
-    public void getBorrowedBooks() { // this method returns a list of borrowed books
+    public void getBorrowedBooks() {
 
     }
 

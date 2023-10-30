@@ -9,19 +9,13 @@ public class Book {
     BookStatus bookStatus;
 
 
-    public Book(String title, String author, BookStatus bookStatus) {
-        this.title = title;
-        this.author = author;
-        this.bookStatus = bookStatus;
-    }
-
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
         this.bookStatus = BookStatus.AVAILABLE;
     }
 
-    public Book (String line) {
+    public Book(String line) {
         String[] parts = line.split("\" ");
         parts[0] = parts[0].replace("\"", "");
         if (parts.length == 2) {
@@ -34,20 +28,16 @@ public class Book {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public BookStatus getBookStatus() {
+        return bookStatus;
     }
 
-    public BookStatus getBookStatus(){
-        return bookStatus;
+    public void setBookStatus(BookStatus bookStatus) {
+        this.bookStatus = bookStatus;
     }
 
     @Override

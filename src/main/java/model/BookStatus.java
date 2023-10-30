@@ -1,7 +1,7 @@
-package model;
+    package model;
 
-public enum BookStatus {
+    public enum BookStatus {
 
-    AVAILABLE, UNAVAILABLE, BORROWED, DELAYED
+        AVAILABLE, BORROWED, DELAYED
 
-}
+    }
