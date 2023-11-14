@@ -24,6 +24,9 @@ public class Book {
         }
     }
 
+    public Book(String part, String part1, BookStatus bookStatus) {
+    }
+
     public String getTitle() {
         return title;
     }
@@ -42,7 +45,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return title + "\" " + author;
+        return  title + "\" " + author;
     }
 
     @Override

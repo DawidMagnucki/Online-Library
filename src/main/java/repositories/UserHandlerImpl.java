@@ -2,7 +2,6 @@ package repositories;
 import exceptions.FilePathNotFoundException;
 import exceptions.LoginException;
 import exceptions.UsernameAlreadyExistsException;
-import exceptions.readAllUserException;
 import model.User;
 
 import java.io.BufferedReader;
@@ -80,7 +79,7 @@ public class UserHandlerImpl implements UserHandler {
                 users.add(user);
             }
         } catch (IOException exception) {
-           // throw new readAllUserException("An error occurred. Please try again.");
+           // throw new ReadAllUserException("An error occurred. Please try again.");
         }
         return users;
     }
