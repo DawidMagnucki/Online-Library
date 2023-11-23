@@ -7,11 +7,17 @@ public class Book {
     String title;
     String author;
     BookStatus bookStatus;
-
+    int id;
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+        this.bookStatus = BookStatus.AVAILABLE;
+    }
+    public Book(String title, String author, int id) {
+        this.title = title;
+        this.author = author;
+        this.id = id;
         this.bookStatus = BookStatus.AVAILABLE;
     }
 
@@ -27,7 +33,7 @@ public class Book {
     public Book(String part, String part1, BookStatus bookStatus) {
     }
 
-    public String getTitle() {
+     public String getTitle() {
         return title;
     }
 
@@ -45,7 +51,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return  title + "\" " + author;
+        return  id + ": \"" + title + "\" - " + author;
     }
 
     @Override

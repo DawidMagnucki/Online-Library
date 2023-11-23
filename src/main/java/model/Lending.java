@@ -1,10 +1,13 @@
 package model;
 
-public class LendingInformation {
+import java.util.Date;
+
+public class Lending {
     Book book;
     Borrower borrower;
+    private Date returnDate;
 
-    public LendingInformation (Book book, Borrower borrower){
+    public Lending(Book book, Borrower borrower){
         this.book = book;
         this.borrower = borrower;
     }
@@ -21,7 +24,11 @@ public class LendingInformation {
         return borrower;
     }
 
-    public void setBorrower(Borrower borrower) {
-        this.borrower = borrower;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
     }
 }

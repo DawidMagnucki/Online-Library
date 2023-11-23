@@ -4,24 +4,25 @@ import exceptions.BookNotAvailableException;
 import model.Book;
 import model.BookStatus;
 import model.Borrower;
-import repositories.BookHandler;
-import repositories.BookHandlerImpl;
+import repositories.BookRepository;
+import implementations.BookRepositoryImpl;
+import repositories.LendingRepository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Library {
 
-    private BookHandler bookHandler;
+    private final BookRepository bookRepository;
+    private LendingRepository lendingRepository;
 
     public Library() {
-        this.bookHandler = new BookHandlerImpl();
+        this.bookRepository = new BookRepositoryImpl();
     }
 
     public void addBook(Book book) {
-        if (!bookHandler.exists(book)) {
-            bookHandler.saveBookInfo(book);
+        if (!bookRepository.exists(book)) {
+            bookRepository.saveBookInfo(book);
             System.out.println("Book added successfully");
         } else {
             System.out.println("Book already exists in the library");
@@ -33,7 +34,7 @@ public class Library {
         try {
             if (book.getBookStatus().equals(BookStatus.AVAILABLE)) {
                 book.setBookStatus(BookStatus.BORROWED);
-                bookHandler.addBookToLendingList(book, borrower, date);
+                lendingRepository.addBookToLendingList(book, borrower, date);
             }
         } catch (BookNotAvailableException exception) {
             System.out.println("The book you are trying to borrow is not available. Please try again later.");
@@ -79,6 +80,6 @@ public class Library {
     }
 
     public List<Book> getAllBooks() { // this method reads all book info
-        return bookHandler.readAllBooks();
+        return bookRepository.readAllBooks();
     }
 }

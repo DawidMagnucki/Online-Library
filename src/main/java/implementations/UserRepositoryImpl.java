@@ -1,8 +1,9 @@
-package repositories;
+package implementations;
 import exceptions.FilePathNotFoundException;
 import exceptions.LoginException;
 import exceptions.UsernameAlreadyExistsException;
 import model.User;
+import repositories.UserRepository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UserHandlerImpl implements UserHandler {
+public class UserRepositoryImpl implements UserRepository {
 
     private final String filePath;
     private List<User> userList;
 
-    public UserHandlerImpl(String filePath) {
+    public UserRepositoryImpl(String filePath) {
         this.filePath = filePath;
         this.userList = readAllUsers();
     }
@@ -35,7 +36,7 @@ public class UserHandlerImpl implements UserHandler {
             writer.close();
             this.userList = readAllUsers();
         } catch (IOException exception) {
-            throw new FilePathNotFoundException("An error has occurred while creating new user. File path not found.", exception);
+            throw new FilePathNotFoundException("An error has occurred while creating new user. File path not found.");
         }
         return newUser;
     }

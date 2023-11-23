@@ -1,9 +1,8 @@
 package exceptions;
 
-import java.io.IOException;
 
 public class FilePathNotFoundException extends RuntimeException{
-    public FilePathNotFoundException(String message, IOException cause){
+    public FilePathNotFoundException(String message){
         super(message);
     }
 }

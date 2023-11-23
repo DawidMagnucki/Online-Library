@@ -1,6 +1,7 @@
 import exceptions.CorrectInfoComparisonException;
 import exceptions.LoginException;
 import exceptions.UsernameAlreadyExistsException;
+import implementations.UserRepositoryImpl;
 import model.Book;
 import repositories.*;
 import services.Library;
@@ -14,7 +15,7 @@ import static java.lang.System.out;
 
 public class Application {
 
-    static UserHandler userHandler = new UserHandlerImpl("src/main/resources/users.txt");
+    static UserRepository userRepository = new UserRepositoryImpl("src/main/resources/users.txt");
 
     public static void start() {
 
@@ -83,7 +84,7 @@ public class Application {
 
     private static void register() throws UsernameAlreadyExistsException {
         String registerUsername = Menu.getUserReply("Please create your unique username.");
-        if (userHandler.doesUsernameExist(registerUsername)) {
+        if (userRepository.doesUsernameExist(registerUsername)) {
             System.err.println("Username already exists. Please choose a different username.");
             return;
         }
@@ -95,7 +96,7 @@ public class Application {
                 String email2 = Menu.getUserReply("Please re-enter your e-mail address");
                 try {
                     if (email.equals(email2)) {
-                        userHandler.registerUser(registerUsername, registerPassword, email);
+                        userRepository.registerUser(registerUsername, registerPassword, email);
                         out.println("Registration successful.");
                     } else {
                         throw new CorrectInfoComparisonException("The e-mails do not match. Please try again");
@@ -114,7 +115,7 @@ public class Application {
     public static boolean login() throws LoginException {
         String username = Menu.getUserReply("Please enter your username.");
         String password = Menu.getUserReply("Please enter your password.");
-        if (userHandler.login(username, password)) {
+        if (userRepository.login(username, password)) {
             System.out.println("Login has been successful. Welcome " + username + ".");
             return true;
         }
