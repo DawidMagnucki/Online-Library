@@ -14,6 +14,7 @@ import java.util.List;
 public class Library {
 
     private final BookRepository bookRepository;
+    //TODO: LendingRepository is not initialized yet. NPE probably in line 40 will be thrown
     private LendingRepository lendingRepository;
 
     public Library() {
@@ -30,8 +31,10 @@ public class Library {
     }
 
     public void borrowBook(Book book, Borrower borrower) {
+        //TODO: Rename this because we don't know here what kind of date is it
         Date date = new Date();
         try {
+            //TODO: New method if(isBookAvailable()){...}
             if (book.getBookStatus().equals(BookStatus.AVAILABLE)) {
                 book.setBookStatus(BookStatus.BORROWED);
                 lendingRepository.addBookToLendingList(book, borrower, date);

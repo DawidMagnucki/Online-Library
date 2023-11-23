@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//TODO: Try to implement mySQL db for users too.
 public class UserRepositoryImpl implements UserRepository {
 
     private final String filePath;
@@ -56,6 +57,8 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return false;
     }
+
+    //TODO: You can use readAllUsers() here i guess
     @Override
     public boolean doesUsernameExist(String username) throws UsernameAlreadyExistsException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

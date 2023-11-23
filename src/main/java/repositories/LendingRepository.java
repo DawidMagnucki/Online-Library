@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface LendingRepository {
 
+    //TODO: public unnecessary
     public List<Lending> readLendingList();
 
     public List<Lending> readLendingListByBorrower(Borrower borrower);

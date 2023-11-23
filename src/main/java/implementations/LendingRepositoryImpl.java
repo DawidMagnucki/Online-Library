@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
+//TODO: Not in usage yet. So use it in your code as next task :)
 public class LendingRepositoryImpl implements LendingRepository {
 
     private static final String SRC_MAIN_RESOURCES_LENDING_TXT = "lending.txt";

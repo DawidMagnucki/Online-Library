@@ -17,11 +17,15 @@ public class Application {
 
     static UserRepository userRepository = new UserRepositoryImpl("src/main/resources/users.txt");
 
+    // TODO: It might be easier to remove all static words from this method and create an instance method of Application in Main and then start() method
     public static void start() {
 
+        // TODO: Transfer to Application() constructor and create field library
         Library library = new Library();
+        // TODO: You can transfer this to the constructor too and assign books to field List<Book> books
         List<Book> books = library.getAllBooks(); // Read books once at the start
 
+        // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and also has UserHandler userHandler (or change to UserRepository)
         boolean loggedIn = false;
 
         while (true) {
@@ -34,6 +38,7 @@ public class Application {
             int loginChoice = Menu.getUserInput();
 
             try {
+                // TODO: New method like processLoginChoice(loginChoice). It will be easier after removing static context
                 switch (loginChoice) {
                     case 1 -> loggedIn = login();
                     case 2 -> register();
@@ -45,9 +50,11 @@ public class Application {
                     boolean continueInnerLoop = true;
                     try {
                         while (continueInnerLoop) {
+                            // TODO: Rename to displayMenuChoices() nad all methods inside Menu same
                             Menu.getMenuChoice();
                             int menuChoice = Menu.getUserInput();
 
+                            // TODO: New method like processLibraryChoice(menuChoice). It will be easier after removing static context
                             switch (menuChoice) {
                                 case 1 -> out.println(books);
                                 case 2 -> addNewBook(library);
@@ -62,6 +69,8 @@ public class Application {
                                 default -> throw new WrongMenuChoiceException("Invalid choice entered");
                             }
                         }
+                        // TODO: There is a lot of exception handling in one place. Maybe you will find a solution to simplify this.
+                        //       Or create more methods that handle those exceptions
                     } catch (InputMismatchException exception) {
                         throw new InputMismatchException("Invalid input format. Please enter a number");
                     } catch (WrongMenuChoiceException exception) {
@@ -77,6 +86,8 @@ public class Application {
     }
 
     private static void addNewBook(Library library) {
+        // TODO: For all of those Strings, you can create constants like public static final String PLEASE_ENTER_A_TITLE = "Please enter a title";
+        // TODO: You can also create a class in the ui folder like UserInteractionMessages and keep those there. Try it! :)
         String title = Menu.getUserReply("Please enter a title");
         String author = Menu.getUserReply("Please enter an author");
         library.addBook(new Book(title, author));

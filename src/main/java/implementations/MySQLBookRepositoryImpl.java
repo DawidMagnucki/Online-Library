@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//TODO: Try to take similar code into common method
+//TODO: Use try-with-resources
 public class MySQLBookRepositoryImpl implements BookRepository {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/online_library";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
+
 
     @Override
     public void saveBookInfo(Book book) {
@@ -84,7 +87,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
 
         return bookExists;
     }
-
+    //TODO: Did you test that? You are using , instead of AND
     @Override
     public void deleteBook(Book book) {
         try {
@@ -101,6 +104,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
         }
     }
 
+    //TODO: Did you test that? You are using , instead of AND
     @Override
     public void updateBook(Book book) {
         try {
