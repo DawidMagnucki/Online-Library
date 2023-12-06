@@ -1,7 +1,6 @@
 package repositories;
 
 import exceptions.LoginException;
-import implementations.UserRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

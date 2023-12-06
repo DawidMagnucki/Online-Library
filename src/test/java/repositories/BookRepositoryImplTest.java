@@ -1,10 +1,6 @@
 package repositories;
 
-import implementations.BookRepositoryImpl;
-import model.Book;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BookRepositoryImplTest {
 

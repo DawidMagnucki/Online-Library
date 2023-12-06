@@ -5,7 +5,7 @@ import model.Book;
 import model.BookStatus;
 import model.Borrower;
 import repositories.BookRepository;
-import implementations.BookRepositoryImpl;
+import repositories.BookRepositoryImpl;
 import repositories.LendingRepository;
 
 import java.util.Date;

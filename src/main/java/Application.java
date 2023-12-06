@@ -1,7 +1,7 @@
 import exceptions.CorrectInfoComparisonException;
 import exceptions.LoginException;
 import exceptions.UsernameAlreadyExistsException;
-import implementations.UserRepositoryImpl;
+import repositories.UserRepositoryImpl;
 import model.Book;
 import repositories.*;
 import services.Library;
@@ -17,13 +17,24 @@ public class Application {
 
     static UserRepository userRepository = new UserRepositoryImpl("src/main/resources/users.txt");
 
-    // TODO: It might be easier to remove all static words from this method and create an instance method of Application in Main and then start() method
-    public static void start() {
+    Library library;
+    List<Book> books;
+    public Application (Library library){
+        this.library = library;
+    }
 
-        // TODO: Transfer to Application() constructor and create field library
-        Library library = new Library();
-        // TODO: You can transfer this to the constructor too and assign books to field List<Book> books
-        List<Book> books = library.getAllBooks(); // Read books once at the start
+    public Application (List<Book> books){
+        this.books = books;
+    }
+
+
+    // TODO: It might be easier to remove all static words from this method and create an instance method of Application in Main and then start() method - D: done
+    public void start() {
+
+        // TODO: Transfer to Application() constructor and create field library - D: done
+        //Library library = new Library();
+        // TODO: You can transfer this to the constructor too and assign books to field List<Book> books  - D: done
+        //List<Book> books = library.getAllBooks(); // Read books once at the start
 
         // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and also has UserHandler userHandler (or change to UserRepository)
         boolean loggedIn = false;
@@ -85,7 +96,7 @@ public class Application {
         }
     }
 
-    private static void addNewBook(Library library) {
+    private void addNewBook(Library library) {
         // TODO: For all of those Strings, you can create constants like public static final String PLEASE_ENTER_A_TITLE = "Please enter a title";
         // TODO: You can also create a class in the ui folder like UserInteractionMessages and keep those there. Try it! :)
         String title = Menu.getUserReply("Please enter a title");
@@ -93,7 +104,7 @@ public class Application {
         library.addBook(new Book(title, author));
     }
 
-    private static void register() throws UsernameAlreadyExistsException {
+    private void register() throws UsernameAlreadyExistsException {
         String registerUsername = Menu.getUserReply("Please create your unique username.");
         if (userRepository.doesUsernameExist(registerUsername)) {
             System.err.println("Username already exists. Please choose a different username.");
@@ -123,7 +134,7 @@ public class Application {
         }
     }
 
-    public static boolean login() throws LoginException {
+    public boolean login() throws LoginException {
         String username = Menu.getUserReply("Please enter your username.");
         String password = Menu.getUserReply("Please enter your password.");
         if (userRepository.login(username, password)) {

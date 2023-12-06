@@ -1,15 +1,23 @@
 import model.Book;
-import implementations.MySQLBookRepositoryImpl;
+import repositories.MySQLBookRepositoryImpl;
 
 public class Main {
     public static void main(String[] args) {
-//        Application.start();
+
+
+       // Application application = new Application();
+        //application.start();
+
 
       Book book = new Book("ABC", "Agatha Christie");
 
         MySQLBookRepositoryImpl mySQLBookRepository = new MySQLBookRepositoryImpl();
         mySQLBookRepository.saveBookInfo(book);
         System.out.println(mySQLBookRepository.readAllBooks());
+
+        mySQLBookRepository.updateBook(book);
+        System.out.println(mySQLBookRepository.readAllBooks());
+
 
     }
 }

@@ -1,9 +1,9 @@
-package implementations;
-//TODO: There is bad practice to create such folder as implementations because it's Java inside feature.
-//TODO: Move this files from this folder to Repositories and you can distinct them there
+package repositories;
+//TODO: There is bad practice to create such folder as implementations because it's Java inside feature.- D: done
+//TODO: Move this files from this folder to Repositories and you can distinct them there - D: done
+
 import exceptions.FilePathNotFoundException;
 import model.Book;
-import repositories.BookRepository;
 import services.Statistics;
 
 import java.io.*;
