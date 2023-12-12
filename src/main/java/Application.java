@@ -12,6 +12,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import static java.lang.System.out;
+import static ui.UserInteractionMessages.*;
 
 public class Application {
 
@@ -30,20 +31,16 @@ public class Application {
 
     // TODO: It might be easier to remove all static words from this method and create an instance method of Application in Main and then start() method - D: done
     public void start() {
-
-        // TODO: Transfer to Application() constructor and create field library - D: done
-        //Library library = new Library();
-        // TODO: You can transfer this to the constructor too and assign books to field List<Book> books  - D: done
-        //List<Book> books = library.getAllBooks(); // Read books once at the start
-
-        // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and also has UserHandler userHandler (or change to UserRepository)
         boolean loggedIn = false;
+        // TODO: Transfer to Application() constructor and create field library - D: done
+        // TODO: You can transfer this to the constructor too and assign books to field List<Book> books  - D: done
+        // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and also has UserHandler userHandler (or change to UserRepository)
 
         while (true) {
             if (!loggedIn) {
                 Menu.getLoginPage();
             } else {
-                Menu.getMenuChoice();
+                Menu.displayMenuChoices();
             }
 
             int loginChoice = Menu.getUserInput();
@@ -61,8 +58,8 @@ public class Application {
                     boolean continueInnerLoop = true;
                     try {
                         while (continueInnerLoop) {
-                            // TODO: Rename to displayMenuChoices() nad all methods inside Menu same
-                            Menu.getMenuChoice();
+                            // TODO: Rename to displayMenuChoices() nad all methods inside Menu same - done
+                            Menu.displayMenuChoices();
                             int menuChoice = Menu.getUserInput();
 
                             // TODO: New method like processLibraryChoice(menuChoice). It will be easier after removing static context
@@ -96,38 +93,40 @@ public class Application {
         }
     }
 
+
+
     private void addNewBook(Library library) {
-        // TODO: For all of those Strings, you can create constants like public static final String PLEASE_ENTER_A_TITLE = "Please enter a title";
-        // TODO: You can also create a class in the ui folder like UserInteractionMessages and keep those there. Try it! :)
-        String title = Menu.getUserReply("Please enter a title");
-        String author = Menu.getUserReply("Please enter an author");
+        // TODO: For all of those Strings, you can create constants like public static final String PLEASE_ENTER_A_TITLE = "Please enter a title"; - done
+        // TODO: You can also create a class in the ui folder like UserInteractionMessages and keep those there. Try it! :) - done
+        String title = Menu.getUserReply(ENTER_TITLE_MSG);
+        String author = Menu.getUserReply(ENTER_AUTHOR_MSG);
         library.addBook(new Book(title, author));
     }
 
     private void register() throws UsernameAlreadyExistsException {
-        String registerUsername = Menu.getUserReply("Please create your unique username.");
+        String registerUsername = Menu.getUserReply(CREATE_USERNAME_MSG);
         if (userRepository.doesUsernameExist(registerUsername)) {
-            System.err.println("Username already exists. Please choose a different username.");
+            System.err.println(NEW_USERNAME_ERROR_MSG);
             return;
         }
-        String registerPassword = Menu.getUserReply("Please set your password.");
-        String registerPassword2 = Menu.getUserReply("Please re-enter your password.");
+        String registerPassword = Menu.getUserReply(SET_PASSWORD_MSG);
+        String registerPassword2 = Menu.getUserReply(REPEAT_PASSWORD_MSG);
         try {
             if (registerPassword.equals(registerPassword2)) {
-                String email = Menu.getUserReply("Please enter your e-mail address");
-                String email2 = Menu.getUserReply("Please re-enter your e-mail address");
+                String email = Menu.getUserReply(ENTER_EML_MSG);
+                String email2 = Menu.getUserReply(REPEAT_EML_MSG);
                 try {
                     if (email.equals(email2)) {
                         userRepository.registerUser(registerUsername, registerPassword, email);
-                        out.println("Registration successful.");
+                        out.println(REG_SUCCESS_MSG);
                     } else {
-                        throw new CorrectInfoComparisonException("The e-mails do not match. Please try again");
+                        throw new CorrectInfoComparisonException(EML_ERROR_MSG);
                     }
                 } catch (CorrectInfoComparisonException exception) {
                     System.err.println(exception.getMessage());
                 }
             } else {
-                throw new CorrectInfoComparisonException("Your password does not match. Please try again.");
+                throw new CorrectInfoComparisonException(PASSWORD_ERROR_MSG);
             }
         } catch (CorrectInfoComparisonException exception) {
             System.err.println(exception.getMessage());
@@ -135,8 +134,8 @@ public class Application {
     }
 
     public boolean login() throws LoginException {
-        String username = Menu.getUserReply("Please enter your username.");
-        String password = Menu.getUserReply("Please enter your password.");
+        String username = Menu.getUserReply(ENTER_USERNAME);
+        String password = Menu.getUserReply(ENTER_PASSWORD);
         if (userRepository.login(username, password)) {
             System.out.println("Login has been successful. Welcome " + username + ".");
             return true;

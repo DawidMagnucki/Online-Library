@@ -71,13 +71,3 @@ public class BookRepositoryImpl implements BookRepository {
         // This method writes the statistics data to a file.
     }
 }
-
-/* ZADANIE DOMOWE:
- 1. ZMIENIĆ NAZWY KLAS BookRepository na BookRepositoryImpl - done
- 2. ROZRÓŻNIĆ METODY LENDING OD SAMEJ BOOK, CZYLI STWORZYĆ KOLEJNA KLASĘ LendingRepositoryImpl
- (Jeżeli chcemy stworzyć interface) - done
- 3. Uprościć metody (jak wyżej) - done
- 4. Popracować nad testami (kody muszą być testowalne)
- 5. Dodać metody delete book i update book do interface'u oraz zaimplementuj je w BookHandlerImp, oraz w MySQLBookRepositoryImpl - done
-    (na obu metodach możesz użyć preparedStatement) - done
- */

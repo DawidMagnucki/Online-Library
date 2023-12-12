@@ -9,7 +9,7 @@ public class Menu {
         System.out.println("2. Register");
         System.out.println("3. Exit");
     }
-    public static void getMenuChoice() { // this method displays the main menu to the user
+    public static void displayMenuChoices() { // this method displays the main menu to the user
         System.out.println("1. Show all books");
         System.out.println("2. Add a new book");
         System.out.println("3. Logout & Move to Previous Menu");
