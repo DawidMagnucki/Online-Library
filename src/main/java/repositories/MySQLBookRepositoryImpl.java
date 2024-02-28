@@ -1,18 +1,13 @@
 package repositories;
 
 import model.Book;
-import model.Borrower;
-import repositories.BookRepository;
 import services.Statistics;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-// TODO: Try to take similar code into common method - DONE
-// TODO: Use try-with-resources - DONE
 public class MySQLBookRepositoryImpl implements BookRepository {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/online_library";
@@ -25,7 +20,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void saveBookInfo(Book book) {
+    public void addNew(Book book) {
         try (Connection connection = getConnection()) {
             String sql = "INSERT INTO book (TITLE, AUTHOR, STATUS) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -62,7 +57,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public boolean exists(Book book) {
+    public boolean exist(Book book) {
         boolean bookExists = false;
         try (Connection connection = getConnection()) {
             String sql = "SELECT COUNT(*) FROM book WHERE TITLE = ? AND AUTHOR = ?";
@@ -82,9 +77,10 @@ public class MySQLBookRepositoryImpl implements BookRepository {
         }
         return bookExists;
     }
+
     // TODO: Did you test that? You are using , instead of AND - D: done
     @Override
-    public void deleteBook(Book book) {
+    public void delete(Book book) {
         try (Connection connection = getConnection()) {
             String sql = "DELETE FROM book WHERE TITLE = ? AND AUTHOR = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -99,7 +95,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
 
     // TODO: Did you test that? You are using , instead of AND - D: done
     @Override
-    public void updateBook(Book book) {
+    public void update(Book book) {
         try (Connection connection = getConnection()) {
             String sql = "UPDATE book SET TITLE = ?, AUTHOR = ?, STATUS = ? WHERE TITLE = ? AND AUTHOR = ? AND STATUS = ?";
             String oldTitle = book.getTitle();
@@ -123,10 +119,6 @@ public class MySQLBookRepositoryImpl implements BookRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    @Override
-    public void writeStatisticsData(String fileName, Statistics statistics) {
-        // Implementation pending
     }
 }

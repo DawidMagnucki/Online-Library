@@ -34,7 +34,8 @@ public class Application {
         boolean loggedIn = false;
         // TODO: Transfer to Application() constructor and create field library - D: done
         // TODO: You can transfer this to the constructor too and assign books to field List<Book> books  - D: done
-        // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and also has UserHandler userHandler (or change to UserRepository)
+        // TODO: Maybe separate class for keeping login state like: services.UserStorage that keeps this state and
+        //  also has UserHandler userHandler (or change to UserRepository) (UserStorage - ma mieć jedno pole logged in- false)
 
         while (true) {
             if (!loggedIn) {

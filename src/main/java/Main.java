@@ -12,10 +12,10 @@ public class Main {
       Book book = new Book("ABC", "Agatha Christie");
 
         MySQLBookRepositoryImpl mySQLBookRepository = new MySQLBookRepositoryImpl();
-        mySQLBookRepository.saveBookInfo(book);
+        mySQLBookRepository.addNew(book);
         System.out.println(mySQLBookRepository.readAllBooks());
 
-        mySQLBookRepository.updateBook(book);
+        mySQLBookRepository.update(book);
         System.out.println(mySQLBookRepository.readAllBooks());
 
 

@@ -4,7 +4,6 @@ import model.Book;
 
 import java.util.Date;
 public class Statistics {
-
     Book book;
     Date date;
 

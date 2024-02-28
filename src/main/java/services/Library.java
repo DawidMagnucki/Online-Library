@@ -6,7 +6,6 @@ import model.BookStatus;
 import model.Borrower;
 import repositories.BookRepository;
 import repositories.BookRepositoryImpl;
-import repositories.LendingRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -22,8 +21,8 @@ public class Library {
     }
 
     public void addBook(Book book) {
-        if (!bookRepository.exists(book)) {
-            bookRepository.saveBookInfo(book);
+        if (!bookRepository.exist(book)) {
+            bookRepository.addNew(book);
             System.out.println("Book added successfully");
         } else {
             System.out.println("Book already exists in the library");

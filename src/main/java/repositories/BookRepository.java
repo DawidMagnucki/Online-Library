@@ -1,20 +1,16 @@
 package repositories;
-
 import model.Book;
-import services.Statistics;
-
 import java.util.List;
 
 public interface BookRepository {
-    void saveBookInfo(Book book);
+    void addNew(Book book);
 
     List<Book> readAllBooks();
 
-    boolean exists(Book book);
+    boolean exist(Book book);
 
-    void deleteBook(Book book);
+    void delete(Book book);
 
-    void updateBook(Book book);
+    void update(Book book);
 
-    void writeStatisticsData(String fileName, Statistics statistics);
 }
