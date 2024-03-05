@@ -1,6 +1,6 @@
 package model;
 
-public class User {
+public class User { //User class is designed for admins and borrowers in order to log in to the system
 
     String username;
     String password;

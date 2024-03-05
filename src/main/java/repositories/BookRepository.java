@@ -5,12 +5,12 @@ import java.util.List;
 public interface BookRepository {
     void addNew(Book book);
 
-    List<Book> readAllBooks();
+    List<Book> getAll();
 
-    boolean exist(Book book);
+    void update(Book book);
 
     void delete(Book book);
 
-    void update(Book book);
+    boolean exist(Book book);
 
 }

@@ -35,7 +35,7 @@ public class MySQLBookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> readAllBooks() {
+    public List<Book> getAll() {
         List<Book> books = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {

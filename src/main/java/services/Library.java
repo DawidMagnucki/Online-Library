@@ -14,7 +14,6 @@ public class Library {
 
     private final BookRepository bookRepository;
     //TODO: LendingRepository is not initialized yet. NPE probably in line 40 will be thrown
-    private LendingRepository lendingRepository;
 
     public Library() {
         this.bookRepository = new BookRepositoryImpl();
@@ -36,7 +35,6 @@ public class Library {
             //TODO: New method if(isBookAvailable()){...}
             if (book.getBookStatus().equals(BookStatus.AVAILABLE)) {
                 book.setBookStatus(BookStatus.BORROWED);
-                lendingRepository.addBookToLendingList(book, borrower, date);
             }
         } catch (BookNotAvailableException exception) {
             System.out.println("The book you are trying to borrow is not available. Please try again later.");
@@ -82,6 +80,6 @@ public class Library {
     }
 
     public List<Book> getAllBooks() { // this method reads all book info
-        return bookRepository.readAllBooks();
+        return bookRepository.getAll();
     }
 }
